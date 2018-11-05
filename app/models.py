@@ -1,16 +1,32 @@
-from app import db
+from sqlalchemy.dialects.postgresql import JSON
+from flask_sqlalchemy import SQLAlchemy
 
-class categories(db.Model):
+db = SQLAlchemy()
 
-    __tablename__ = 'categories'
+class phones(db.Model):
+    __tablename__ = 'phones'
 
-    name_of_category = db.Column(db.String(64), index=True, unique=True)
+    name = db.Column(db.String(), index=True, unique=True)
     id = db.Column(db.Integer, primary_key=True)
-    1.2 = db.relationship('mobilephone', backref='type_of_category')
-    1.3 = db.relationship('laptop', backref='type_of_category')
-    1.4 = db.relationship('headphones', primary_key=True)
+    db.phones.insert( {_name:'Phones', path: null})
+    db.phones.insert( {_name:'Iphone', path: 'phones'})
+    db.phones.insert( {_name:'Color', path: 'phones, Iphone'})
+    db.phones.insert({_name: 'Gold', path: 'phones, Iphone, Color'})
+    db.phones.insert({_name: 'Black', path: 'phones, Iphone, Color'})
+    db.phones.insert({_name: 'Pink', path: 'phones, Iphone, Color'})
+    db.phones.insert({_name: 'Memory', path: 'phones, Iphone'})
+    db.phones.insert({_name: '64', path: 'phones, Iphone, Memory'})
+    db.phones.insert({_name: '128', path: 'phones, Iphone, Memory'})
+    db.phones.insert({_name: '256', path: 'phones, Iphone, Memory'})
+    db.phones.insert({_name: 'Xiaomi', path: 'phones'})
+    db.phones.insert({_name: 'MI8', path: 'phones, Xiaomi'})
+    db.phones.insert({_name: 'MI_MIX3', path: 'phones, Xiaomi'})
+    db.phones.insert({_name: 'Color', path: 'phones, Xiaomi, MI_MIX3'})
+    db.phones.insert({_name: 'Memory', path: 'phones, Xiaomi, MI_MIX3'})
 
 
+    def __init__(self, name):
+        self.name = name
 
     def __repr__(self):
-        return '<categories {}>' .format(self.name_of_category, self.Global_id, self.id)
+        return '<id {}>' .format(self.id)
