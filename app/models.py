@@ -1,32 +1,21 @@
+from sqlalchemy import orm
 from sqlalchemy.dialects.postgresql import JSON
-from flask_sqlalchemy import SQLAlchemy
+from flask_sqlalchemy import SQLAlchemy, sqlalchemy.orm
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import relationship, backref
+import sqlamp
 
-db = SQLAlchemy()
-
-class phones(db.Model):
-    __tablename__ = 'phones'
-
-    name = db.Column(db.String(), index=True, unique=True)
+Base = declarative_base()
+"""in this db i have 3 columns name id and categories_path"""
+class categories(Base):
+    __tablename__ = 'categories'
+    name = db.Column(db.String(), unique=True)
     id = db.Column(db.Integer, primary_key=True)
-    db.phones.insert( {_name:'Phones', path: null})
-    db.phones.insert( {_name:'Iphone', path: 'phones'})
-    db.phones.insert( {_name:'Color', path: 'phones, Iphone'})
-    db.phones.insert({_name: 'Gold', path: 'phones, Iphone, Color'})
-    db.phones.insert({_name: 'Black', path: 'phones, Iphone, Color'})
-    db.phones.insert({_name: 'Pink', path: 'phones, Iphone, Color'})
-    db.phones.insert({_name: 'Memory', path: 'phones, Iphone'})
-    db.phones.insert({_name: '64', path: 'phones, Iphone, Memory'})
-    db.phones.insert({_name: '128', path: 'phones, Iphone, Memory'})
-    db.phones.insert({_name: '256', path: 'phones, Iphone, Memory'})
-    db.phones.insert({_name: 'Xiaomi', path: 'phones'})
-    db.phones.insert({_name: 'MI8', path: 'phones, Xiaomi'})
-    db.phones.insert({_name: 'MI_MIX3', path: 'phones, Xiaomi'})
-    db.phones.insert({_name: 'Color', path: 'phones, Xiaomi, MI_MIX3'})
-    db.phones.insert({_name: 'Memory', path: 'phones, Xiaomi, MI_MIX3'})
+    categories_path = db.Column(Integer, ForeignKey('categories.id'))
 
-
-    def __init__(self, name):
+    def __init__(self, name, id, categories_path):
         self.name = name
+        self.id = id
+        self.categories_path = categories_path
 
-    def __repr__(self):
-        return '<id {}>' .format(self.id)
+
